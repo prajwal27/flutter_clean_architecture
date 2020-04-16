@@ -31,26 +31,26 @@ void main() {
         when(mockNumberTriviaRepository.getConcreteNumberTrivia(any))
             .thenAnswer((_) async => Right(tNumberTrivia));
 
-        when(mockNumberTriviaRepository.getRandomNumberTrivia())
-            .thenAnswer((_) async => Right(tNumberTrivia));
+       /* when(mockNumberTriviaRepository.getRandomNumberTrivia())
+            .thenAnswer((_) async => Right(tNumberTrivia));*/
         // act
         final result = await usecase(Params(number: tNumber));
-        final randomResult = await usecase.executeRandom();
+        //final randomResult = await usecase.executeRandom();
 
         // UseCase should simply return whatever was returned from the Repository
         expect(result, Right(tNumberTrivia));
-        expect(randomResult, Right(tNumberTrivia));
+        //expect(randomResult, Right(tNumberTrivia));
 
         // Verify that the method has been called on the Repository
         verify(mockNumberTriviaRepository.getConcreteNumberTrivia(tNumber));
-        verify(mockNumberTriviaRepository.getRandomNumberTrivia());
+        //verify(mockNumberTriviaRepository.getRandomNumberTrivia());
 
         // Only the above method should be called and nothing more.
         verifyNoMoreInteractions(mockNumberTriviaRepository);
       }
   );
 
-  test(
+  /*test(
       'should get trivia for the Random number from the repository',
           () async {
         // arrange
@@ -69,5 +69,5 @@ void main() {
         // Only the above method should be called and nothing more.
         verifyNoMoreInteractions(mockNumberTriviaRepository);
       }
-  );
+  );*/
 }
