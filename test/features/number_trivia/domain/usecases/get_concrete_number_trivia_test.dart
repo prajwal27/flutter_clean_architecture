@@ -22,25 +22,52 @@ void main() {
   final tNumber = 1;
   final tNumberTrivia = NumberTrivia(number: 1, text: 'test');
   test(
-    'should get trivia for the number from the repository',
-    () async {
-    // arrange
-      // "On the fly" implementation of the Repository using the Mockito package.
-      // When getConcreteNumberTrivia is called with any argument, always answer with
-      // the Right "side" of Either containing a test NumberTrivia object.
-      when(mockNumberTriviaRepository.getConcreteNumberTrivia(any))
-          .thenAnswer((_) async => Right(tNumberTrivia));
-    // act
-      final result = await usecase.execute(number: tNumber);
+      'should get trivia for the number from the repository',
+          () async {
+        // arrange
+        // "On the fly" implementation of the Repository using the Mockito package.
+        // When getConcreteNumberTrivia is called with any argument, always answer with
+        // the Right "side" of Either containing a test NumberTrivia object.
+        when(mockNumberTriviaRepository.getConcreteNumberTrivia(any))
+            .thenAnswer((_) async => Right(tNumberTrivia));
 
-      // UseCase should simply return whatever was returned from the Repository
-      expect(result, Right(tNumberTrivia));
+        when(mockNumberTriviaRepository.getRandomNumberTrivia())
+            .thenAnswer((_) async => Right(tNumberTrivia));
+        // act
+        final result = await usecase.execute(number: tNumber);
+        final randomResult = await usecase.executeRandom();
 
-      // Verify that the method has been called on the Repository
-      verify(mockNumberTriviaRepository.getConcreteNumberTrivia(tNumber));
+        // UseCase should simply return whatever was returned from the Repository
+        expect(result, Right(tNumberTrivia));
+        expect(randomResult, Right(tNumberTrivia));
 
-      // Only the above method should be called and nothing more.
-      verifyNoMoreInteractions(mockNumberTriviaRepository);
-    }
+        // Verify that the method has been called on the Repository
+        verify(mockNumberTriviaRepository.getConcreteNumberTrivia(tNumber));
+        verify(mockNumberTriviaRepository.getRandomNumberTrivia());
+
+        // Only the above method should be called and nothing more.
+        verifyNoMoreInteractions(mockNumberTriviaRepository);
+      }
+  );
+
+  test(
+      'should get trivia for the Random number from the repository',
+          () async {
+        // arrange
+
+        when(mockNumberTriviaRepository.getRandomNumberTrivia())
+            .thenAnswer((_) async => Right(tNumberTrivia));
+        // act
+        final randomResult = await usecase.executeRandom();
+
+        // UseCase should simply return whatever was returned from the Repository
+        expect(randomResult, Right(tNumberTrivia));
+
+        // Verify that the method has been called on the Repository
+        verify(mockNumberTriviaRepository.getRandomNumberTrivia());
+
+        // Only the above method should be called and nothing more.
+        verifyNoMoreInteractions(mockNumberTriviaRepository);
+      }
   );
 }
