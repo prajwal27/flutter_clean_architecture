@@ -17,9 +17,9 @@ class GetConcreteNumberTrivia implements Usecase<NumberTrivia,Params> {
     return await repository.getConcreteNumberTrivia(params.number);
   }
 
-  Future<Either<Failure, NumberTrivia>> executeRandom() async {
+  /*Future<Either<Failure, NumberTrivia>> executeRandom() async {
     return await repository.getRandomNumberTrivia();
-  }
+  }*/
 }
 
 class Params extends Equatable {
