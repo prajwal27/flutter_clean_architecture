@@ -34,7 +34,7 @@ void main() {
         when(mockNumberTriviaRepository.getRandomNumberTrivia())
             .thenAnswer((_) async => Right(tNumberTrivia));
         // act
-        final result = await usecase.execute(number: tNumber);
+        final result = await usecase(number: tNumber);
         final randomResult = await usecase.executeRandom();
 
         // UseCase should simply return whatever was returned from the Repository
