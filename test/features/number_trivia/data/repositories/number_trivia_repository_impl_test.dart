@@ -1,6 +1,6 @@
 import 'package:architecture/core/error/exceptions.dart';
 import 'package:architecture/core/error/failures.dart';
-import 'package:architecture/core/platform/network_info.dart';
+import 'package:architecture/core/network/network_info.dart';
 import 'package:architecture/features/number_trivia/data/datasources/number_trivia_local_ds.dart';
 import 'package:architecture/features/number_trivia/data/datasources/number_trivia_remote_ds.dart';
 import 'package:architecture/features/number_trivia/data/models/number_trivia_model.dart';
